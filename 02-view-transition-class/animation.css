@@ -1,0 +1,81 @@
+@view-transition {
+    navigation: auto;
+}
+
+.title {
+    view-transition-name: title;
+}
+
+.paragraph {
+    view-transition-name: paragraph;
+}
+
+.paragraph-two {
+    view-transition-name: paragraph-two;
+}
+
+.slide {
+    view-transition-class: slide;
+}
+
+@keyframes slide-in-from-left {
+    from {
+        translate: -100vw 0;
+    }
+}
+
+@keyframes slide-in-from-right {
+    from {
+        translate: 100vw 0;
+    }
+}
+
+@keyframes slide-out-to-left {
+    to {
+        translate: -100vw 0;
+    }
+}
+
+@keyframes slide-out-to-right {
+    to {
+        translate: 100vw 0;
+    }
+}
+
+::view-transition-group(*) {
+    animation-duration: 0.5s;
+}
+
+html:active-view-transition-type(forwards) {
+    &::view-transition-old(.slide) {
+        animation-name: slide-out-to-left;
+    }
+    &::view-transition-new(.slide) {
+        animation-name: slide-in-from-right;
+    }
+    &::view-transition-old(paragraph),
+    &::view-transition-new(paragraph) {
+        animation-delay: 50ms;
+    }
+    &::view-transition-old(paragraph-two),
+    &::view-transition-new(paragraph-two) {
+        animation-delay: 100ms;
+    }
+}
+
+html:active-view-transition-type(backwards) {
+    &::view-transition-old(.slide) {
+        animation-name: slide-out-to-right;
+    }
+    &::view-transition-new(.slide) {
+        animation-name: slide-in-from-left;
+    }
+    &::view-transition-old(paragraph),
+    &::view-transition-new(paragraph) {
+        animation-delay: 50ms;
+    }
+    &::view-transition-old(paragraph-two),
+    &::view-transition-new(paragraph-two) {
+        animation-delay: 100ms;
+    }
+}
